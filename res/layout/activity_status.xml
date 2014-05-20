@@ -19,6 +19,7 @@
         
         <EditText
             android:id="@+id/editStatus"
+            android:gravity="top"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -26,8 +27,17 @@
             android:ems="10"
             android:hint="@string/hint_status"
             android:inputType="textMultiLine" >
-
+            
             <requestFocus />
         </EditText>
+
+        <TextView
+            android:id="@+id/textCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editStatus"
+            android:layout_alignTop="@+id/buttonTweet"
+            android:text="140"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

@@ -5,5 +5,11 @@
     <string name="action_settings">Settings</string>
     <string name="button_tweet">Tweet</string>
     <string name="hint_status">What\'s going on?</string>
+    <string name="username_summary">Inform username</string>
+    <string name="username_title">Username</string>
+    <string name="password_title">Password</string>
+    <string name="password_summary">Write a password with 6 or more characters.</string>
+    <string name="apiroot_title">API Root</string>
+    <string name="apiroot_summary">Inform the root API</string>
 
 </resources>

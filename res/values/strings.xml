@@ -13,5 +13,7 @@
     <string name="apiroot_summary">Inform the root API</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="tweet">Tweet</string>
+    <string name="refresh">Refresh</string>
 
 </resources>

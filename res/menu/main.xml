@@ -7,6 +7,19 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        android:showAsAction="never"/>
+    
+    <item
+        android:id="@+id/action_tweet"
+        android:orderInCategory="110"
+        android:title="@string/tweet"
+        android:showAsAction="always|withText" android:icon="@android:drawable/ic_menu_add"/>
+    
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="120"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:title="@string/refresh"
+        android:showAsAction="always"/>
 
 </menu>

@@ -3,6 +3,7 @@ package com.learning.android.yamba;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,10 +39,16 @@ public class MainActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+		switch(id) {
+			case R.id.action_settings:
+				startActivity(new Intent(this, SettingsActivity.class));
+				return true;
+			case R.id.action_tweet:
+				startActivity(new Intent("com.learning.android.yamba.action.tweet"));
+				return true;
+			default:
+				return false;
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**

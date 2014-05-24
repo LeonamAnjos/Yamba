@@ -7,7 +7,6 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 public class RefreshService extends IntentService {
 	

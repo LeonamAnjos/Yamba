@@ -28,8 +28,7 @@ public class StatusFragment extends Fragment implements OnClickListener {
 	private Button buttonTweet;
 	private TextView textCount;
 	private int defaultTextColor;
-	private SharedPreferences prefs;
-	
+
 	
 	protected String doInBackgroud(String... params) {
 		return " ";

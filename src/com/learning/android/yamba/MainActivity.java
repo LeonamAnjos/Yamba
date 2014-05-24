@@ -1,16 +1,15 @@
 package com.learning.android.yamba;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -46,9 +45,13 @@ public class MainActivity extends ActionBarActivity {
 			case R.id.action_tweet:
 				startActivity(new Intent("com.learning.android.yamba.action.tweet"));
 				return true;
+			case R.id.action_refresh:
+				startService(new Intent(this, RefreshService.class));
+				break;
 			default:
 				return false;
 		}
+		return true;
 	}
 
 	/**

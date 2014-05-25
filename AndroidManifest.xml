@@ -34,7 +34,10 @@
             </intent-filter>
         </activity>
         <service android:name="RefreshService"/>
-            
+        <provider 
+            android:name="com.learning.android.yamba.StatusProvider"
+            android:authorities="com.learning.android.yamba.StatusProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

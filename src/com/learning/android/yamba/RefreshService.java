@@ -44,6 +44,15 @@ public class RefreshService extends IntentService {
 		Log.d(TAG, "out onHandleIntent");
 		
 		
+		insertByDatabaseDirectly();
+
+		
+		
+		
+		Log.d(TAG, "onHandleIntent DONE!");
+	}
+
+	private void insertByDatabaseDirectly() {
 		DbHelper dbHelper = new DbHelper(this);
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -63,9 +72,6 @@ public class RefreshService extends IntentService {
 			
 			Log.d(TAG, "StatusEntity.ID = " + statusEntity.getId());
 		}
-
-		
-		Log.d(TAG, "onHandleIntent DONE!");
 	}
 
 	@Override

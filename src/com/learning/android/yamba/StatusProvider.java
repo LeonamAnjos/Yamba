@@ -133,6 +133,9 @@ public class StatusProvider extends ContentProvider {
 		return ret;
 	}
 
+	/* 
+	 * SELECT username, message, created_at FROM status WHERE user='bob' ORDER BY created_at DESC;
+	 */
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {

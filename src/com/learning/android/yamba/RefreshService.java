@@ -1,5 +1,7 @@
 package com.learning.android.yamba;
 
+import java.util.List;
+
 import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -48,16 +50,22 @@ public class RefreshService extends IntentService {
 		
 		// server connection
 		
-		//List<Status> timeline = new ArrayList<Status>();
-		values.clear();
-		values.put(StatusContract.Column.ID, 1);
-		values.put(StatusContract.Column.USER, "user name");
-		values.put(StatusContract.Column.MESSAGE, "message");
-		values.put(StatusContract.Column.CREATED_AT, "01/01/2013");
+		List<StatusEntity> statusEntities = StatusEntity.getSomeInstances(20);
 		
-		db.insertWithOnConflict(StatusContract.TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+		for (StatusEntity statusEntity : statusEntities) {
+			values.clear();
+			values.put(StatusContract.Column.ID, statusEntity.getId());
+			values.put(StatusContract.Column.USER, statusEntity.getUser());
+			values.put(StatusContract.Column.MESSAGE, statusEntity.getMessage());
+			values.put(StatusContract.Column.CREATED_AT, statusEntity.getCreatedAt());
+			
+			db.insertWithOnConflict(StatusContract.TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+			
+			Log.d(TAG, "StatusEntity.ID = " + statusEntity.getId());
+		}
+
 		
-		
+		Log.d(TAG, "onHandleIntent DONE!");
 	}
 
 	@Override

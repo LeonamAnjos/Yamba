@@ -7,12 +7,13 @@ import java.util.List;
 public class StatusEntity {
 
 	public static String TAG = "StatusEntity";
+	private static int count = 1;
 
-	public static List<StatusEntity> getSomeInstances(int size) {
+	public static List<StatusEntity> getSomeInstances(int numberOfInstances) {
 		ArrayList<StatusEntity> entities = new ArrayList<StatusEntity>();
 		
-		for (int i = 0; i < size; i++) {
-			entities.add(new StatusEntity(i+1, "user " + i, "message " + i, "01/" + i % 12 + "/2014" ));
+		for (int i = 0; i < numberOfInstances; i++) {
+			entities.add(new StatusEntity(count, "user " + count, "message " + count, "01/" + ((count % 12)+1) + "/2014" ));
 		}
 		
 		return entities;
@@ -24,6 +25,8 @@ public class StatusEntity {
 	private String created_at;
 	
 	public StatusEntity(int id, String user, String message, String createdAt) {
+		count++;
+		
 		this.setId(id);
 		this.setUser(user);
 		this.setMessage(message);;

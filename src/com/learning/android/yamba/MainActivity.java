@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 public class MainActivity extends ActionBarActivity {
 
+	static final String TAG = "MainActivity";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

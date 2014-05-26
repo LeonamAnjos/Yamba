@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -45,11 +46,33 @@ public class RefreshService extends IntentService {
 		
 		
 		insertByDatabaseDirectly();
-
-		
+		insertByStatusProvider();
 		
 		
 		Log.d(TAG, "onHandleIntent DONE!");
+	}
+
+	private void insertByStatusProvider() {
+		ContentValues values = new ContentValues();
+		List<StatusEntity> statusEntities = StatusEntity.getSomeInstances(20);
+		
+		int count = 0;
+		for (StatusEntity statusEntity : statusEntities) {
+			values.clear();
+			values.put(StatusContract.Column.ID, statusEntity.getId());
+			values.put(StatusContract.Column.USER, statusEntity.getUser());
+			values.put(StatusContract.Column.MESSAGE, statusEntity.getMessage());
+			values.put(StatusContract.Column.CREATED_AT, statusEntity.getCreatedAt());
+			
+			
+			// By the uri, we get StatusProvider to take care of the insert instruction. The uri has to be informed in the manifest app file. 
+			Uri uri = getContentResolver().insert(StatusContract.CONTENT_URI, values);
+			if (uri != null) {
+				count++;
+				Log.d(TAG, String.format("%d - %s: %s", count, statusEntity.getUser(), statusEntity.getMessage()));
+			}
+		}
+		Log.d(TAG, String.format("%d new records", count));
 	}
 
 	private void insertByDatabaseDirectly() {

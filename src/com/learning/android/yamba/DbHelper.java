@@ -6,10 +6,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DbHelper extends SQLiteOpenHelper {
-	private static final String TAG = DbHelper.class.getSimpleName();
+	static final String TAG = "DbHelper";
 
 	public DbHelper(Context context) {
 		super(context, StatusContract.DB_NAME, null, StatusContract.DB_VERSION);
+		Log.d(TAG, String.format("DbHelper constructor"));
 	}
 
     /**
@@ -18,14 +19,16 @@ public class DbHelper extends SQLiteOpenHelper {
      */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		Log.d(TAG, String.format("onCreate()"));
+		
 		String sql = String
-				.format("create table %s (%s int primary key, %s text, %s text, %s int)", 
+				.format("create table %s (%s int primary key, %s text, %s text, %s text)", 
 						StatusContract.TABLE,
 						StatusContract.Column.ID,
 						StatusContract.Column.USER,
 						StatusContract.Column.MESSAGE,
 						StatusContract.Column.CREATED_AT);
-		
+
 		Log.d(TAG, "onCreate with SQL:" + sql);
 		db.execSQL(sql);
 	}
@@ -35,7 +38,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+		Log.d(TAG, String.format("onUpgrade(%d, %d", oldVersion, newVersion));
 	}
 
 }

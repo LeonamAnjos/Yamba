@@ -6,7 +6,7 @@ import java.util.List;
 
 public class StatusEntity {
 
-	public static String TAG = "StatusEntity";
+	static final String TAG = "StatusEntity";
 	private static int count = 1;
 
 	public static List<StatusEntity> getSomeInstances(int numberOfInstances) {

@@ -4,7 +4,9 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class StatusContract {
-
+	static final String TAG = "StatusContract";
+	
+	
 	public static final String DB_NAME = "timeline.db";
 	public static final int DB_VERSION = 1;
 	public static final String TABLE = "status";

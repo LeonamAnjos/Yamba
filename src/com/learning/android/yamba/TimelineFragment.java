@@ -1,15 +1,19 @@
 package com.learning.android.yamba;
 
+import java.util.Date;
+
 import android.app.ListFragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.SimpleCursorAdapter;
+import android.widget.SimpleCursorAdapter.ViewBinder;
+import android.widget.TextView;
 
 public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cursor> {
 	static final String TAG = "TimelineFragment";
@@ -47,11 +51,28 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
 		
 		mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.list_item, null, FROM, TO, 0);
 		
-//		mAdapter.setViewBinder(VIEW_BINDER);
+		mAdapter.setViewBinder(new TimelineViewBinder());
 		
 		setListAdapter(mAdapter);
 		
 		getLoaderManager().initLoader(LOADER_ID, null, this);
+	}
+	
+	class TimelineViewBinder implements ViewBinder {
+
+		@Override
+		public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+			if (view.getId() != R.id.list_item_text_created_at)
+				return false;
+			
+			 //Date d = new Date();
+			 
+			long timestamp = 1515431541;//cursor.getLong(columnIndex);
+			CharSequence relativeTime = DateUtils.getRelativeTimeSpanString(timestamp);
+			((TextView)view).setText(relativeTime);
+			return true;
+		}
+		
 	}
 
 	@Override

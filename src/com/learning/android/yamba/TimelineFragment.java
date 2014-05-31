@@ -62,17 +62,18 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
 
 		@Override
 		public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+			Log.d(TAG, "setViewValue");
+			
 			if (view.getId() != R.id.list_item_text_created_at)
 				return false;
 			
 			 //Date d = new Date();
 			 
-			long timestamp = 1515431541;//cursor.getLong(columnIndex);
+			long timestamp = 1815431541;//cursor.getLong(columnIndex);
 			CharSequence relativeTime = DateUtils.getRelativeTimeSpanString(timestamp);
 			((TextView)view).setText(relativeTime);
 			return true;
 		}
-		
 	}
 
 	@Override
@@ -93,6 +94,7 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
+		Log.d(TAG, "onLoaderReset");
 		mAdapter.swapCursor(null);
 		
 	}

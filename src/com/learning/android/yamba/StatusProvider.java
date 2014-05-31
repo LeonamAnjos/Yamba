@@ -111,7 +111,7 @@ public class StatusProvider extends ContentProvider {
 		switch(sURIMatcher.match(uri)) {
 		case StatusContract.STATUS_DIR:
 			// so we count deleted rows
-			where  = (selection == null) ? "1" : selection;
+			where  = (selection == null) ? "" : selection;
 			break;
 		case StatusContract.STATUS_ITEM:
 			long id = ContentUris.parseId(uri);

@@ -1,16 +1,16 @@
 package com.learning.android.yamba;
 
-import java.util.Date;
-
 import android.app.ListFragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
@@ -31,19 +31,29 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
 	private static final int LOADER_ID = 42;
 	private SimpleCursorAdapter mAdapter;
 	
-//	private static final ViewBinder VIEW_BINDER = new ViewBinder() {
-//		
-//		@Override
-//		public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-//			long timestamp;
-//			
-//			// Custom binding
-//			switch (view.getId()) {
-//			case R.id.list_item_text_created_at:
-//				break; 
-//			}
-//		}
-//	}
+	private static final ViewBinder VIEW_BINDER = new ViewBinder() {
+		
+		@Override
+		public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+			long timestamp;
+			
+			// Custom binding
+			switch (view.getId()) {
+			case R.id.list_item_text_created_at:
+				timestamp = cursor.getLong(columnIndex);
+				CharSequence relTime = DateUtils.getRelativeTimeSpanString(timestamp);
+				((TextView)view).setText(relTime);
+				return true;
+//			case R.id.list_item_freshness:
+//				timestamp = cursor.getLong(columnIndex);
+//				((FreshnessView)view).setTimestamp(timestamp);
+//				return true;
+			default:
+				return false;
+			
+			}
+		}
+	};
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -51,13 +61,14 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
 		
 		mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.list_item, null, FROM, TO, 0);
 		
-		mAdapter.setViewBinder(new TimelineViewBinder());
+		//mAdapter.setViewBinder(new TimelineViewBinder());
+		mAdapter.setViewBinder(VIEW_BINDER);
 		
 		setListAdapter(mAdapter);
 		
 		getLoaderManager().initLoader(LOADER_ID, null, this);
 	}
-	
+
 	class TimelineViewBinder implements ViewBinder {
 
 		@Override
@@ -82,10 +93,10 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
 			return null;
 		
 		Log.d(TAG, "onCreateLoader");
-
+		
 		return new CursorLoader(getActivity(), StatusContract.CONTENT_URI, null, null, null, StatusContract.DEFAULT_SORT);
 	}
-
+	
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		Log.d(TAG, "onLoadFinished with cursor: " + data.getCount());
@@ -98,5 +109,21 @@ public class TimelineFragment extends ListFragment implements LoaderCallbacks<Cu
 		mAdapter.swapCursor(null);
 		
 	}
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		// Get the datails fragment
+		DetailsFragment fragment = (DetailsFragment)getFragmentManager().findFragmentById(R.id.fragment_details);
+		
+		// is details fragment visible?
+		if (fragment != null && fragment.isVisible()) {
+			fragment.updateView(id);
+		} else {
+			startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra(StatusContract.Column.ID, id));
+		}
+			
+		//super.onListItemClick(l, v, position, id);
+	}
+	
 
 }
